@@ -69,7 +69,7 @@ export function ProductCard({ product: p }: { product: Product }) {
         <span className="text-[11px] uppercase tracking-[0.14em] text-muted">
           Kolekcija {p.collection}
         </span>
-        <h3 className="mb-1 mt-0.5 text-lg font-semibold">
+        <h3 className="mb-1 mt-0.5 text-base md:text-lg font-semibold">
           <Link href={href} className="transition hover:text-wooddeep">
             {p.name}
           </Link>

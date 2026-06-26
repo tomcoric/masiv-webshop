@@ -50,7 +50,7 @@ export function CartView() {
             </Link>
             <div className="flex flex-1 flex-col">
               <div className="flex items-start justify-between gap-3">
-                <div>
+                <div className="min-w-0 flex-1">
                   <h3 className="font-semibold">
                     <Link href={`/proizvod/${it.slug}`} className="hover:text-wooddeep">
                       {it.name}

@@ -75,7 +75,7 @@ export function ProductDetail({ product: p, related }: { product: Product; relat
             />
           </div>
           {p.images.length > 1 && (
-            <div className="mt-3 flex gap-3">
+            <div className="mt-3 flex gap-3 overflow-x-auto pb-1">
               {p.images.map((img, i) => (
                 <button
                   key={i}
