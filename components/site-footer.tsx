@@ -17,10 +17,10 @@ export function SiteFooter() {
           <FooterCol
             title="Trgovina"
             links={[
-              ["#proizvodi", "Stolovi"],
-              ["#proizvodi", "Stolice i klupe"],
-              ["#proizvodi", "Kutne klupe"],
-              ["#proizvodi", "Najprodavanije"],
+              ["/trgovina", "Svi proizvodi"],
+              ["/trgovina?kategorija=Stolovi", "Stolovi"],
+              ["/trgovina?kategorija=Stolice", "Stolice"],
+              ["/trgovina?kategorija=Kutne klupe", "Kutne klupe"],
             ]}
           />
           <FooterCol

@@ -2,7 +2,38 @@ import Image from "next/image";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { categories, products, formatEur, type Badge } from "@/lib/products";
+import { ProductCard } from "@/components/product-card";
+import { products } from "@/lib/products";
+
+const CATEGORY_TILES = [
+  {
+    name: "Stolovi",
+    href: "/trgovina?kategorija=Stolovi",
+    image:
+      "https://www.gutekunst.de/wp-content/uploads/2021/05/Cardiff_Eiche_Hell_Tisch250x110_Stuhl_Paris_002.jpg",
+    alt: "Blagovaonski stolovi od masivnog drveta",
+  },
+  {
+    name: "Stolice",
+    href: "/trgovina?kategorija=Stolice",
+    image:
+      "https://www.gutekunst.de/wp-content/uploads/2021/06/Cardiff_Nussbaum_Tisch200x100_Sessel_NewYork_Leder_Creme_002.jpg",
+    alt: "Drvene i tapecirane stolice",
+  },
+  {
+    name: "Klupe",
+    href: "/trgovina?kategorija=Klupe",
+    image: "https://www.gutekunst.de/wp-content/uploads/2023/10/gutekunst2023_10_005-scaled.jpg",
+    alt: "Masivne drvene klupe",
+  },
+  {
+    name: "Kutne klupe",
+    href: "/trgovina?kategorija=Kutne klupe",
+    image:
+      "https://www.gutekunst.de/wp-content/uploads/2021/12/16895_21_Eckbankgruppe-scaled.jpg",
+    alt: "Kutne klupe za blagovaonu i kuhinju",
+  },
+];
 
 const VALUES = [
   ["Masivno drvo", "Bez furnira i iverice — pravi masiv hrasta i oraha, uljene površine ugodne na dodir."],
@@ -27,25 +58,15 @@ const REVIEWS = [
   ["„Dostava i unos u stan bez ijedne ogrebotine. Preporuka.”", "Petra K.", "Rijeka"],
 ];
 
-function badgeClass(badge: Badge): string {
-  switch (badge) {
-    case "Akcija":
-      return "bg-sale";
-    case "Novo":
-      return "bg-forest";
-    case "Po narudžbi":
-      return "bg-wood";
-    default:
-      return "bg-ink";
-  }
-}
-
 export default function HomePage() {
+  const featured = [...products]
+    .sort((a, b) => (a.bestsellerRank ?? 99) - (b.bestsellerRank ?? 99))
+    .slice(0, 6);
+
   return (
     <>
       <SiteHeader />
 
-      {/* Najava */}
       <div className="bg-ink px-4 py-2.5 text-center text-[12.5px] tracking-wide text-cream">
         Besplatna dostava na adresu za narudžbe iznad <strong className="font-semibold">900&nbsp;€</strong>
         &nbsp;·&nbsp; Masivni hrast i orah
@@ -75,7 +96,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-wrap gap-3.5">
               <Link
-                href="#proizvodi"
+                href="/trgovina"
                 className="inline-flex items-center rounded-sm border border-white bg-white px-6 py-3.5 text-sm font-medium text-ink transition hover:bg-transparent hover:text-white"
               >
                 Pogledaj kolekciju
@@ -94,15 +115,15 @@ export default function HomePage() {
         <section id="kategorije" className="py-16 md:py-22">
           <div className="mx-auto max-w-[1240px] px-5">
             <SectionHead
-              eyebrow="Istaknute kolekcije"
+              eyebrow="Kategorije"
               title="Blagovaona od masivnog drveta"
               text="Stolovi, stolice, klupe i kutne klupe iz pažljivo biranih kolekcija — hrast, dimljeni hrast i orah, sve s prirodnom uljenom obradom."
             />
             <div className="grid grid-cols-2 gap-3.5 md:grid-cols-4">
-              {categories.map((c) => (
+              {CATEGORY_TILES.map((c) => (
                 <Link
-                  key={c.slug}
-                  href="#proizvodi"
+                  key={c.name}
+                  href={c.href}
                   className="group relative aspect-[3/4] overflow-hidden rounded-sm bg-sand"
                 >
                   <Image
@@ -113,7 +134,6 @@ export default function HomePage() {
                     className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/75 to-transparent p-4 text-white">
-                    <span className="text-xs uppercase tracking-[0.12em] opacity-85">{c.tag}</span>
                     <h3 className="text-xl text-white">{c.name}</h3>
                   </div>
                 </Link>
@@ -153,51 +173,13 @@ export default function HomePage() {
               text="Orijentacijske cijene — konačna cijena ovisi o odabranoj dimenziji i obradi."
             />
             <div className="grid grid-cols-2 gap-x-3.5 gap-y-5 md:grid-cols-3 md:gap-6">
-              {products.map((p) => (
-                <article
-                  key={p.id}
-                  className="flex flex-col overflow-hidden rounded-sm border border-line bg-white transition hover:-translate-y-1 hover:shadow-[0_14px_36px_rgba(60,45,25,0.10)]"
-                >
-                  <div className="relative aspect-square overflow-hidden bg-sand">
-                    {p.badge && (
-                      <span
-                        className={`absolute left-2.5 top-2.5 z-10 rounded-sm px-2.5 py-1 text-[10.5px] font-medium uppercase tracking-[0.08em] text-white ${badgeClass(
-                          p.badge,
-                        )}`}
-                      >
-                        {p.badge}
-                      </span>
-                    )}
-                    <Image
-                      src={p.image}
-                      alt={p.alt}
-                      fill
-                      sizes="(max-width:768px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-700 hover:scale-105"
-                    />
-                  </div>
-                  <div className="flex flex-1 flex-col p-3.5">
-                    <span className="text-[11px] uppercase tracking-[0.14em] text-muted">
-                      Kolekcija {p.collection}
-                    </span>
-                    <h3 className="mb-1 mt-0.5 text-lg font-semibold">{p.name}</h3>
-                    <p className="mb-3 flex-1 text-[12.5px] font-light text-inksoft">{p.description}</p>
-                    <div className="mb-3 flex items-baseline gap-2">
-                      <span className="text-[17px] font-semibold">{formatEur(p.price)}</span>
-                      {p.oldPrice && (
-                        <span className="text-[13px] text-muted line-through">{formatEur(p.oldPrice)}</span>
-                      )}
-                    </div>
-                    <button className="w-full rounded-sm border border-ink bg-cream py-2.5 text-[13px] font-medium tracking-wide transition hover:bg-ink hover:text-cream">
-                      Dodaj u košaricu
-                    </button>
-                  </div>
-                </article>
+              {featured.map((p) => (
+                <ProductCard key={p.id} product={p} />
               ))}
             </div>
             <div className="mt-9 text-center">
               <Link
-                href="#"
+                href="/trgovina"
                 className="inline-flex items-center rounded-sm border border-ink px-6 py-3.5 text-sm font-medium transition hover:bg-ink hover:text-cream"
               >
                 Pogledaj cijeli katalog
@@ -229,7 +211,7 @@ export default function HomePage() {
                   prirodu u dom — komade koji s vremenom postaju ljepši.
                 </p>
                 <Link
-                  href="#proizvodi"
+                  href="/trgovina"
                   className="inline-flex w-fit items-center rounded-sm border border-white px-6 py-3.5 text-sm font-medium text-white transition hover:bg-white hover:text-ink"
                 >
                   Istraži kolekcije

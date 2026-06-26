@@ -4,10 +4,11 @@ import { useState } from "react";
 import Link from "next/link";
 
 const NAV = [
-  { href: "#kategorije", label: "Blagovaona" },
-  { href: "#proizvodi", label: "Stolovi" },
-  { href: "#proizvodi", label: "Stolice i klupe" },
-  { href: "#proces", label: "O nama" },
+  { href: "/trgovina", label: "Trgovina" },
+  { href: "/trgovina?kategorija=Stolovi", label: "Stolovi" },
+  { href: "/trgovina?kategorija=Stolice", label: "Stolice" },
+  { href: "/trgovina?kategorija=Klupe", label: "Klupe" },
+  { href: "/#proces", label: "O nama" },
 ];
 
 export function SiteHeader() {
@@ -29,9 +30,9 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <button aria-label="Pretraga" className="text-ink">
+          <Link href="/trgovina" aria-label="Pretraga" className="text-ink">
             <SearchIcon />
-          </button>
+          </Link>
           <button aria-label="Korisnički račun" className="hidden text-ink sm:block">
             <UserIcon />
           </button>
