@@ -78,6 +78,13 @@ export function Checkout() {
   }
 
   function onSubmit(data: FormData) {
+    // TODO (Shopify bridge): Kad klijent unese proizvode u Shopify, ovdje:
+    // 1. Kreirati Shopify cart s cartCreate() iz lib/shopify/cart.ts
+    // 2. Dodati stavke s addToCart() koristeći Shopify variant ID-eve
+    // 3. Proslijediti buyerIdentity (email, phone, countryCode: "HR")
+    // 4. Redirectati na cart.checkoutUrl umjesto lokalnog order prikaza
+    // Ref: lib/shopify/cart.ts → createCart, addToCart, updateCartBuyerIdentity
+
     const number = `MAS-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
     setOrder({ number, items, subtotal, data });
     clear();
