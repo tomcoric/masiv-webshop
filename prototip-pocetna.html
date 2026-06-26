@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masiva — Namještaj od masivnog drveta</title>
+<meta name="description" content="Masiva — premium namještaj od masivnog drveta stvoren za generacije. Ručno odabran masiv, prirodni materijali i dizajn za stvaran dom. Dostava u cijeloj Hrvatskoj.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6F1E9;
+    --cream-2:#EFE7DA;
+    --sand:#E4D7C3;
+    --ink:#221E1A;
+    --ink-soft:#4A423A;
+    --muted:#8A7B66;
+    --wood:#7A5C3A;
+    --wood-deep:#5A4128;
+    --line:#E0D6C6;
+    --white:#FFFFFF;
+    --forest:#3B4A3F;
+    --radius:4px;
+    --maxw:1240px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Inter',system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;line-height:1.1;color:var(--ink)}
+  img{display:block;max-width:100%;height:auto}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  .eyebrow{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:500}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:14px 26px;font-size:14px;font-weight:500;letter-spacing:.03em;
+    border:1px solid var(--ink);border-radius:var(--radius);cursor:pointer;
+    transition:.25s ease;background:transparent;color:var(--ink)
+  }
+  .btn--solid{background:var(--ink);color:var(--cream)}
+  .btn--solid:hover{background:var(--wood-deep);border-color:var(--wood-deep)}
+  .btn--ghost:hover{background:var(--ink);color:var(--cream)}
+  .btn--light{border-color:#fff;color:#fff}
+  .btn--light:hover{background:#fff;color:var(--ink)}
+
+  /* prototype ribbon */
+  .proto{position:fixed;right:-46px;top:26px;transform:rotate(45deg);background:var(--wood);color:#fff;
+    font-size:11px;letter-spacing:.15em;padding:6px 56px;z-index:200;box-shadow:0 2px 10px rgba(0,0,0,.15)}
+
+  /* announcement */
+  .topbar{background:var(--ink);color:var(--cream);text-align:center;font-size:12.5px;letter-spacing:.04em;padding:9px 16px}
+  .topbar strong{font-weight:600}
+
+  /* header */
+  header.site{position:sticky;top:0;z-index:100;background:rgba(246,241,233,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;letter-spacing:.18em}
+  .logo span{color:var(--wood)}
+  .nav-links{display:none;gap:30px;font-size:14px;letter-spacing:.02em}
+  .nav-links a{padding:6px 0;position:relative;color:var(--ink-soft)}
+  .nav-links a:hover{color:var(--ink)}
+  .nav-icons{display:flex;align-items:center;gap:18px}
+  .icon-btn{background:none;border:none;cursor:pointer;color:var(--ink);display:flex;position:relative}
+  .cart-count{position:absolute;top:-7px;right:-9px;background:var(--wood);color:#fff;font-size:10px;font-family:'Inter';
+    width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+  .burger{display:flex;background:none;border:none;cursor:pointer;color:var(--ink)}
+  #mtoggle{display:none}
+  .mobile-menu{display:none;flex-direction:column;border-top:1px solid var(--line);background:var(--cream);padding:8px 20px 18px}
+  .mobile-menu a{padding:12px 0;border-bottom:1px solid var(--line);font-size:15px}
+  #mtoggle:checked ~ .mobile-menu{display:flex}
+
+  /* hero */
+  .hero{position:relative;min-height:86vh;display:flex;align-items:flex-end;
+    background:linear-gradient(180deg,rgba(20,16,12,.05) 0%,rgba(20,16,12,.55) 100%),
+    url('https://www.gutekunst.de/wp-content/uploads/2023/10/gutekunst2023_10_001-scaled.jpg') center/cover no-repeat}
+  .hero-inner{padding:0 0 56px;color:#fff;max-width:640px}
+  .hero h1{color:#fff;font-size:clamp(38px,9vw,68px);font-weight:600;letter-spacing:.01em;text-shadow:0 2px 20px rgba(0,0,0,.25)}
+  .hero p{margin:18px 0 28px;font-size:clamp(15px,4vw,18px);font-weight:300;max-width:520px;color:rgba(255,255,255,.92)}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px}
+
+  /* section base */
+  section{padding:64px 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 40px}
+  .sec-head h2{font-size:clamp(28px,6vw,42px);margin-top:10px}
+  .sec-head p{color:var(--ink-soft);margin-top:12px;font-weight:300}
+
+  /* categories */
+  .cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .cat{position:relative;overflow:hidden;border-radius:var(--radius);aspect-ratio:3/4;background:var(--sand)}
+  .cat img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+  .cat:hover img{transform:scale(1.05)}
+  .cat-label{position:absolute;inset:auto 0 0 0;padding:18px 16px;color:#fff;
+    background:linear-gradient(180deg,transparent,rgba(15,12,9,.75))}
+  .cat-label h3{color:#fff;font-size:21px}
+  .cat-label span{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.85}
+
+  /* values */
+  .values{background:var(--cream-2)}
+  .val-grid{display:grid;grid-template-columns:1fr;gap:30px}
+  .val{display:flex;gap:16px;align-items:flex-start}
+  .val .ic{flex:none;width:44px;height:44px;border:1px solid var(--wood);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--wood)}
+  .val h4{font-size:21px;margin-bottom:3px}
+  .val p{font-size:14px;color:var(--ink-soft);font-weight:300}
+
+  /* products */
+  .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 14px}
+  .card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column;transition:.25s}
+  .card:hover{box-shadow:0 14px 36px rgba(60,45,25,.10);transform:translateY(-3px)}
+  .card .ph{position:relative;aspect-ratio:1/1;background:var(--sand);overflow:hidden}
+  .card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+  .card:hover .ph img{transform:scale(1.05)}
+  .badge{position:absolute;top:10px;left:10px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;
+    background:var(--ink);color:#fff;padding:5px 9px;border-radius:2px;font-weight:500}
+  .badge.sale{background:#9c3b2e}
+  .badge.new{background:var(--forest)}
+  .badge.order{background:var(--wood)}
+  .card-body{padding:14px 14px 16px;display:flex;flex-direction:column;flex:1}
+  .card-body .coll{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .card-body h3{font-size:19px;margin:3px 0 4px;font-weight:600}
+  .card-body .desc{font-size:12.5px;color:var(--ink-soft);font-weight:300;margin-bottom:12px;flex:1}
+  .price{display:flex;align-items:baseline;gap:8px;margin-bottom:12px}
+  .price .now{font-family:'Inter';font-size:17px;font-weight:600}
+  .price .old{font-size:13px;color:var(--muted);text-decoration:line-through}
+  .add{width:100%;padding:11px;font-size:13px;font-weight:500;letter-spacing:.04em;background:var(--cream);
+    border:1px solid var(--ink);border-radius:var(--radius);cursor:pointer;transition:.2s}
+  .add:hover{background:var(--ink);color:var(--cream)}
+
+  /* lifestyle split */
+  .split{display:grid;grid-template-columns:1fr;gap:0;background:var(--ink);color:var(--cream);border-radius:var(--radius);overflow:hidden}
+  .split img{width:100%;height:100%;object-fit:cover;min-height:280px}
+  .split .txt{padding:44px 26px}
+  .split .txt h2{color:var(--cream);font-size:clamp(26px,6vw,38px)}
+  .split .txt p{color:rgba(246,241,233,.82);font-weight:300;margin:16px 0 24px}
+
+  /* process */
+  .steps{display:grid;grid-template-columns:1fr;gap:22px;counter-reset:s}
+  .step{padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--white);position:relative}
+  .step::before{counter-increment:s;content:"0" counter(s);font-family:'Cormorant Garamond',serif;font-size:34px;color:var(--sand);font-weight:700;display:block;margin-bottom:6px}
+  .step h4{font-size:20px;margin-bottom:4px}
+  .step p{font-size:13.5px;color:var(--ink-soft);font-weight:300}
+
+  /* custom cta */
+  .custom{background:linear-gradient(180deg,rgba(34,30,26,.55),rgba(34,30,26,.75)),
+    url('https://www.gutekunst.de/wp-content/uploads/2025/12/Gutekunst_Milieu1_neu-scaled.jpeg') center/cover;
+    color:#fff;text-align:center;border-radius:var(--radius)}
+  .custom .inner{padding:64px 24px;max-width:600px;margin:0 auto}
+  .custom h2{color:#fff;font-size:clamp(28px,6vw,42px)}
+  .custom p{color:rgba(255,255,255,.9);font-weight:300;margin:16px 0 26px}
+
+  /* reviews */
+  .rev-grid{display:grid;grid-template-columns:1fr;gap:18px}
+  .rev{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+  .stars{color:var(--wood);letter-spacing:3px;margin-bottom:10px;font-size:14px}
+  .rev p{font-style:italic;color:var(--ink-soft);font-weight:300;margin-bottom:14px}
+  .rev .who{font-size:13px;font-weight:600}
+  .rev .who span{color:var(--muted);font-weight:400}
+
+  /* newsletter */
+  .news{background:var(--cream-2);text-align:center}
+  .news form{display:flex;flex-wrap:wrap;gap:10px;max-width:480px;margin:22px auto 0}
+  .news input{flex:1;min-width:200px;padding:14px 16px;border:1px solid var(--line);border-radius:var(--radius);font-size:14px;background:#fff}
+
+  /* footer */
+  footer{background:var(--ink);color:rgba(246,241,233,.78);padding:54px 0 28px;font-size:13.5px;font-weight:300}
+  .foot-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px 20px;margin-bottom:36px}
+  .foot-col h4{color:var(--cream);font-family:'Inter';font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;font-weight:600}
+  .foot-col a{display:block;padding:5px 0;color:rgba(246,241,233,.72)}
+  .foot-col a:hover{color:#fff}
+  .foot-brand .logo{color:var(--cream);margin-bottom:12px;display:inline-block}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding-top:20px;display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;font-size:12px;color:rgba(246,241,233,.55)}
+
+  /* sticky mobile cta */
+  .sticky-buy{position:fixed;left:0;right:0;bottom:0;z-index:90;background:var(--cream);border-top:1px solid var(--line);
+    padding:10px 16px;display:flex;gap:10px;align-items:center;justify-content:space-between;box-shadow:0 -4px 20px rgba(0,0,0,.06)}
+  .sticky-buy .s-price{font-weight:600;font-size:15px}
+  .sticky-buy .s-price small{display:block;font-size:11px;color:var(--muted);font-weight:400}
+  .sticky-buy .btn{flex:1;max-width:200px}
+
+  svg.i{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.6}
+
+  @media(min-width:760px){
+    .nav-links{display:flex}
+    .burger{display:none}
+    .cat-grid{grid-template-columns:repeat(4,1fr)}
+    .val-grid{grid-template-columns:repeat(2,1fr);gap:34px 40px}
+    .prod-grid{grid-template-columns:repeat(3,1fr);gap:24px}
+    .split{grid-template-columns:1fr 1fr}
+    .split .txt{padding:60px 48px;display:flex;flex-direction:column;justify-content:center}
+    .steps{grid-template-columns:repeat(5,1fr)}
+    .rev-grid{grid-template-columns:repeat(3,1fr)}
+    .foot-grid{grid-template-columns:2fr 1fr 1fr 1fr}
+    .sticky-buy{display:none}
+    section{padding:88px 0}
+  }
+  @media(min-width:1000px){
+    .prod-grid{grid-template-columns:repeat(3,1fr)}
+  }
+</style>
+</head>
+<body>
+<div class="proto">PROTOTIP</div>
+
+<div class="topbar">Besplatna dostava na adresu za narudžbe iznad <strong>900&nbsp;€</strong> &nbsp;·&nbsp; Izrada po mjeri dostupna</div>
+
+<header class="site">
+  <input type="checkbox" id="mtoggle">
+  <div class="wrap nav">
+    <a href="#" class="logo">MAS<span>I</span>VA</a>
+    <nav class="nav-links">
+      <a href="#kategorije">Blagovaona</a>
+      <a href="#proizvodi">Stolovi</a>
+      <a href="#proizvodi">Stolice i klupe</a>
+      <a href="#pomjeri">Po mjeri</a>
+      <a href="#proces">O nama</a>
+    </nav>
+    <div class="nav-icons">
+      <button class="icon-btn" aria-label="Pretraga"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
+      <button class="icon-btn" aria-label="Račun"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg></button>
+      <button class="icon-btn" aria-label="Košarica"><svg class="i" viewBox="0 0 24 24"><path d="M6 7h15l-1.5 11H7.5L6 7z"/><path d="M9 7a3 3 0 016 0"/></svg><span class="cart-count">2</span></button>
+      <label for="mtoggle" class="burger icon-btn" aria-label="Izbornik"><svg class="i" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></label>
+    </div>
+  </div>
+  <div class="mobile-menu">
+    <a href="#kategorije">Blagovaona</a>
+    <a href="#proizvodi">Stolovi</a>
+    <a href="#proizvodi">Stolice i klupe</a>
+    <a href="#proizvodi">Klupe i kutne klupe</a>
+    <a href="#pomjeri">Izrada po mjeri</a>
+    <a href="#proces">O nama</a>
+    <a href="#kontakt">Kontakt</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="padding:0">
+  <div class="wrap hero-inner">
+    <span class="eyebrow" style="color:rgba(255,255,255,.85)">Masivno drvo · Schwarzwald kvaliteta</span>
+    <h1>Namještaj koji ostaje generacijama.</h1>
+    <p>Ručno odabran masiv, prirodni materijali i dizajn stvoren za stvaran dom.</p>
+    <div class="hero-cta">
+      <a href="#proizvodi" class="btn btn--solid" style="background:#fff;color:var(--ink);border-color:#fff">Pogledaj kolekciju</a>
+      <a href="#pomjeri" class="btn btn--light">Izradi po mjeri</a>
+    </div>
+  </div>
+</section>
+
+<!-- KATEGORIJE -->
+<section id="kategorije">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Istaknute kolekcije</span>
+      <h2>Blagovaona od masivnog drveta</h2>
+      <p>Stolovi, stolice, klupe i kutne klupe iz pažljivo biranih kolekcija — hrast, dimljeni hrast i orah, sve s prirodnom uljenom obradom.</p>
+    </div>
+    <div class="cat-grid">
+      <a href="#proizvodi" class="cat">
+        <img src="https://www.gutekunst.de/wp-content/uploads/2021/05/Cardiff_Eiche_Hell_Tisch250x110_Stuhl_Paris_002.jpg" alt="Kolekcija Cardiff — blagovaonski stol od svijetlog hrasta">
+        <div class="cat-label"><span>Stolovi</span><h3>Cardiff</h3></div>
+      </a>
+      <a href="#proizvodi" class="cat">
+        <img src="https://www.gutekunst.de/wp-content/uploads/2025/01/gutekunst2024_10_005-scaled.jpg" alt="Kolekcija Curve — masivni drveni stol">
+        <div class="cat-label"><span>Stolovi</span><h3>Curve</h3></div>
+      </a>
+      <a href="#proizvodi" class="cat">
+        <img src="https://www.gutekunst.de/wp-content/uploads/2025/10/Modula_Milieu-scaled.jpg" alt="Kolekcija Modula — blagovaonski namještaj">
+        <div class="cat-label"><span>Stolovi</span><h3>Modula</h3></div>
+      </a>
+      <a href="#proizvodi" class="cat">
+        <img src="https://www.gutekunst.de/wp-content/uploads/2021/06/monte_3_0_hauptaufnahme_borke_freischwinger_schwarz.jpg" alt="Kolekcija Monte — kutna klupa">
+        <div class="cat-label"><span>Klupe i kutne klupe</span><h3>Monte</h3></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Zašto Masiva</span>
+      <h2>Stvoreno da traje</h2>
+    </div>
+    <div class="val-grid">
+      <div class="val"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M12 2l3 6 6 .5-4.5 4 1.5 6L12 15l-6 3.5 1.5-6L3 8.5 9 8z"/></svg></div><div><h4>Masivno drvo</h4><p>Bez furnira i iverice — pravi masiv hrasta i oraha, uljene površine ugodne na dodir.</p></div></div>
+      <div class="val"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M4 12l5 5L20 6"/></svg></div><div><h4>Kvalitetna izrada</h4><p>Provjereni stolarski spojevi i strogi standardi kvalitete u svakom komadu.</p></div></div>
+      <div class="val"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11z"/></svg></div><div><h4>Dugotrajnost</h4><p>Namještaj koji se prenosi s generacije na generaciju, ne mijenja se svake sezone.</p></div></div>
+      <div class="val"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></div><div><h4>Izrada po mjeri</h4><p>Dimenzije, vrsta drveta i završna obrada prilagođeni vašem prostoru.</p></div></div>
+      <div class="val"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M3 13h13V6H3zM16 9h4l1 4v3h-5z"/><circle cx="7" cy="18" r="1.6"/><circle cx="18" cy="18" r="1.6"/></svg></div><div><h4>Dostava na adresu</h4><p>Sigurna dostava velikih komada u cijeloj Hrvatskoj, uz mogućnost unosa u prostor.</p></div></div>
+      <div class="val"><div class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><h4>Procijenjeni rok izrade</h4><p>Jasan rok isporuke za svaki komad — bez skrivenih iznenađenja.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section id="proizvodi">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Najprodavanije</span>
+      <h2>Izdvojeno iz kolekcija</h2>
+      <p>Orijentacijske cijene — konačne cijene i varijante potvrđuju se prema dimenzijama i obradi.</p>
+    </div>
+    <div class="prod-grid">
+
+      <article class="card">
+        <div class="ph"><span class="badge">Najprodavanije</span>
+          <img src="https://www.gutekunst.de/wp-content/uploads/2021/05/Cardiff_Eiche_Hell_Tisch250x110_Stuhl_Paris_002.jpg" alt="Blagovaonski stol Cardiff hrast 250x110"></div>
+        <div class="card-body">
+          <span class="coll">Kolekcija Cardiff</span>
+          <h3>Stol Cardiff Hrast 250×110</h3>
+          <p class="desc">Masivni hrast, svijetla uljena obrada. Stabilna konstrukcija za cijelu obitelj.</p>
+          <div class="price"><span class="now">1.890 €</span></div>
+          <button class="add">Dodaj u košaricu</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="ph"><span class="badge sale">Akcija</span>
+          <img src="https://www.gutekunst.de/wp-content/uploads/2025/01/gutekunst2024_10_005-scaled.jpg" alt="Blagovaonski stol Curve hrast 200"></div>
+        <div class="card-body">
+          <span class="coll">Kolekcija Curve</span>
+          <h3>Stol Curve Hrast 200</h3>
+          <p class="desc">Masivno drvo i prirodne linije — moderan blagovaonski stol mekih rubova.</p>
+          <div class="price"><span class="now">1.490 €</span><span class="old">1.690 €</span></div>
+          <button class="add">Dodaj u košaricu</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="ph"><span class="badge order">Po narudžbi</span>
+          <img src="https://www.gutekunst.de/wp-content/uploads/2021/06/monte_3_0_hauptaufnahme_borke_freischwinger_schwarz.jpg" alt="Kutna klupa Monte"></div>
+        <div class="card-body">
+          <span class="coll">Kolekcija Monte</span>
+          <h3>Kutna klupa Monte</h3>
+          <p class="desc">Rješenje za svaki prostor — kutna klupa u cm-rasteru po vašoj mjeri.</p>
+          <div class="price"><span class="now">od 1.450 €</span></div>
+          <button class="add">Dodaj u košaricu</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="ph"><span class="badge new">Novo</span>
+          <img src="https://www.gutekunst.de/wp-content/uploads/2025/10/Modula_Milieu-scaled.jpg" alt="Blagovaonski stol Modula"></div>
+        <div class="card-body">
+          <span class="coll">Kolekcija Modula</span>
+          <h3>Stol Modula Hrast 200</h3>
+          <p class="desc">Prirodno, stilsko i ugodno — stol koji čini srce blagovaone.</p>
+          <div class="price"><span class="now">1.590 €</span></div>
+          <button class="add">Dodaj u košaricu</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="ph">
+          <img src="https://www.gutekunst.de/wp-content/uploads/2024/03/gutekunst2024_03_001-scaled.jpg" alt="Blagovaonski stol Sydney drvo i metal"></div>
+        <div class="card-body">
+          <span class="coll">Kolekcija Sydney</span>
+          <h3>Stol Sydney 180 (drvo + metal)</h3>
+          <p class="desc">Spoj masivnog drveta i metala — robustan, industrijski elegantan stol.</p>
+          <div class="price"><span class="now">1.290 €</span></div>
+          <button class="add">Dodaj u košaricu</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="ph"><span class="badge new">Novo</span>
+          <img src="https://www.gutekunst.de/wp-content/uploads/2025/10/Ariva_Milieu-scaled.jpg" alt="Blagovaonski stol Ariva"></div>
+        <div class="card-body">
+          <span class="coll">Kolekcija Ariva</span>
+          <h3>Stol Ariva Hrast 220</h3>
+          <p class="desc">Lakoća koja poziva na zadržavanje — profinjen masivni stol za druženje.</p>
+          <div class="price"><span class="now">1.740 €</span></div>
+          <button class="add">Dodaj u košaricu</button>
+        </div>
+      </article>
+
+    </div>
+    <div style="text-align:center;margin-top:38px">
+      <a href="#" class="btn btn--ghost">Pogledaj cijeli katalog</a>
+    </div>
+  </div>
+</section>
+
+<!-- LIFESTYLE SPLIT -->
+<section>
+  <div class="wrap">
+    <div class="split">
+      <img src="https://www.gutekunst.de/wp-content/uploads/2025/12/Gutekunst_Milieu2_neu-scaled.jpeg" alt="Uređen dom s masivnim drvenim namještajem">
+      <div class="txt">
+        <span class="eyebrow" style="color:var(--sand)">Izrađeno za vaš dom</span>
+        <h2>Toplina drveta u srcu doma</h2>
+        <p>Stol za kojim se okuplja obitelj, klupa koja prati svaki blagdan. Masiva donosi prirodu u dom — komade koji s vremenom postaju ljepši.</p>
+        <a href="#proizvodi" class="btn btn--light" style="align-self:flex-start">Istraži kolekcije</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCES -->
+<section id="proces" class="values">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Proces izrade</span>
+      <h2>Od stabla do vašeg doma</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><h4>Odabir drva</h4><p>Biramo masivni hrast i orah provjerenog porijekla.</p></div>
+      <div class="step"><h4>Obrada</h4><p>Drvo se suši i priprema uz strogu kontrolu kvalitete.</p></div>
+      <div class="step"><h4>Ručna izrada</h4><p>Spojevi i detalji dovršeni iskusnom rukom majstora.</p></div>
+      <div class="step"><h4>Završna obrada</h4><p>Prirodno ulje koje ističe teksturu i štiti površinu.</p></div>
+      <div class="step"><h4>Dostava</h4><p>Sigurna dostava i unos u vaš prostor po dogovoru.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CUSTOM CTA -->
+<section id="pomjeri">
+  <div class="wrap">
+    <div class="custom">
+      <div class="inner">
+        <span class="eyebrow" style="color:rgba(255,255,255,.85)">Namještaj po mjeri</span>
+        <h2>Drugačija dimenzija ili obrada?</h2>
+        <p>Vaš prostor je jedinstven. Recite nam dimenzije, vrstu drveta i željenu obradu — izradit ćemo komad po vašoj mjeri.</p>
+        <a href="#kontakt" class="btn btn--light">Pošaljite upit za izradu po mjeri</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Povjerenje kupaca</span>
+      <h2>Što kažu naši kupci</h2>
+      <p style="font-size:13px;color:var(--muted)">Prikazane recenzije su primjeri za prototip i zamijenit će se stvarnim recenzijama kupaca.</p>
+    </div>
+    <div class="rev-grid">
+      <div class="rev"><div class="stars">★★★★★</div><p>„Stol je još ljepši uživo. Masiv se osjeti čim ga dotakneš.”</p><div class="who">Ivana M. <span>· Zagreb</span></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>„Izrada po mjeri za naš mali prostor — sve je sjelo savršeno.”</p><div class="who">Marko P. <span>· Split</span></div></div>
+      <div class="rev"><div class="stars">★★★★★</div><p>„Dostava i unos u stan bez ijedne ogrebotine. Preporuka.”</p><div class="who">Petra K. <span>· Rijeka</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="news">
+  <div class="wrap">
+    <div class="sec-head" style="margin-bottom:0">
+      <span class="eyebrow">Ostanite u kontaktu</span>
+      <h2>Inspiracija za dom</h2>
+      <p>Novi komadi, akcije i savjeti za njegu masivnog drveta — povremeno, bez spama.</p>
+      <form onsubmit="return false">
+        <input type="email" placeholder="Vaša e-mail adresa" aria-label="E-mail">
+        <button class="btn btn--solid" type="submit">Pretplati se</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="kontakt">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col foot-brand">
+        <span class="logo">MAS<span style="color:var(--wood)">I</span>VA</span>
+        <p style="max-width:320px">Namještaj od masivnog drveta stvoren za generacije. Premium masiv za hrvatski dom.</p>
+      </div>
+      <div class="foot-col"><h4>Trgovina</h4>
+        <a href="#proizvodi">Stolovi</a><a href="#proizvodi">Stolice i klupe</a><a href="#proizvodi">Kutne klupe</a><a href="#pomjeri">Po mjeri</a>
+      </div>
+      <div class="foot-col"><h4>Pomoć</h4>
+        <a href="#">Dostava i rokovi</a><a href="#">Načini plaćanja</a><a href="#">Povrat i reklamacije</a><a href="#">Česta pitanja</a>
+      </div>
+      <div class="foot-col"><h4>Kontakt</h4>
+        <a href="#">info@masiva.hr</a><a href="#">+385 1 000 0000</a><a href="#">Instagram</a><a href="#">Facebook</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Masiva. Sva prava pridržana.</span>
+      <span>Uvjeti kupnje · Privatnost · Kolačići</span>
+    </div>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE CTA -->
+<div class="sticky-buy">
+  <div class="s-price">od 1.290 €<small>Blagovaonski stolovi</small></div>
+  <a href="#proizvodi" class="btn btn--solid">Pogledaj kolekciju</a>
+</div>
+
+</body>
+</html>

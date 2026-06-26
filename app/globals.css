@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/* ── Masiva dizajn sustav ── */
+@theme {
+  --color-cream: #f6f1e9;
+  --color-cream2: #efe7da;
+  --color-sand: #e4d7c3;
+  --color-ink: #221e1a;
+  --color-inksoft: #4a423a;
+  --color-muted: #8a7b66;
+  --color-wood: #7a5c3a;
+  --color-wooddeep: #5a4128;
+  --color-line: #e0d6c6;
+  --color-forest: #3b4a3f;
+  --color-sale: #9c3b2e;
+
+  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-serif);
+    font-weight: 600;
+    line-height: 1.1;
+  }
+  /* Vidljiv focus state radi pristupačnosti */
+  :focus-visible {
+    outline: 2px solid var(--color-wood);
+    outline-offset: 2px;
+  }
+}
+
+/* Poštivanje prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
