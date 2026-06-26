@@ -1,5 +1,9 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { useCart } from "@/lib/cart";
 import { formatEur, hasVariants, type Product, type Badge } from "@/lib/products";
 
 function badgeClass(badge: Badge): string {
@@ -15,8 +19,32 @@ function badgeClass(badge: Badge): string {
   }
 }
 
+function defaultVariants(p: Product): string[] {
+  const v: string[] = [];
+  if (p.woodOptions.length) v.push(p.woodOptions[0].label);
+  if (p.finishOptions.length) v.push(p.finishOptions[0].label);
+  if (p.sizeOptions.length) v.push(p.sizeOptions[0].label);
+  return v;
+}
+
 export function ProductCard({ product: p }: { product: Product }) {
   const href = `/proizvod/${p.slug}`;
+  const { add } = useCart();
+  const [added, setAdded] = useState(false);
+
+  function quickAdd() {
+    add({
+      slug: p.slug,
+      name: p.name,
+      image: p.images[0],
+      variants: defaultVariants(p),
+      unitPrice: p.basePrice,
+      qty: 1,
+    });
+    setAdded(true);
+    window.setTimeout(() => setAdded(false), 1800);
+  }
+
   return (
     <article className="group flex flex-col overflow-hidden rounded-sm border border-line bg-white transition hover:-translate-y-1 hover:shadow-[0_14px_36px_rgba(60,45,25,0.10)]">
       <Link href={href} className="relative block aspect-square overflow-hidden bg-sand">
@@ -56,14 +84,18 @@ export function ProductCard({ product: p }: { product: Product }) {
             <span className="text-[13px] text-muted line-through">{formatEur(p.oldPrice)}</span>
           )}
         </div>
-        <div className="flex gap-2">
-          <Link
-            href={href}
-            className="flex-1 rounded-sm border border-ink bg-cream py-2.5 text-center text-[13px] font-medium tracking-wide transition hover:bg-ink hover:text-cream"
-          >
-            Pogledaj proizvod
-          </Link>
-        </div>
+        <button
+          onClick={quickAdd}
+          className="w-full rounded-sm border border-ink bg-cream py-2.5 text-center text-[13px] font-medium tracking-wide transition hover:bg-ink hover:text-cream"
+        >
+          {added ? "Dodano ✓" : "Dodaj u košaricu"}
+        </button>
+        <Link
+          href={href}
+          className="mt-2 text-center text-[12px] text-muted underline-offset-2 transition hover:text-ink hover:underline"
+        >
+          Pogledaj proizvod
+        </Link>
       </div>
     </article>
   );

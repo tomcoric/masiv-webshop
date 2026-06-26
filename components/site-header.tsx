@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useCart } from "@/lib/cart";
 
 const NAV = [
   { href: "/trgovina", label: "Trgovina" },
@@ -13,6 +14,7 @@ const NAV = [
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { count } = useCart();
 
   return (
     <header className="sticky top-0 z-50 border-b border-line bg-cream/90 backdrop-blur">
@@ -36,12 +38,14 @@ export function SiteHeader() {
           <button aria-label="Korisnički račun" className="hidden text-ink sm:block">
             <UserIcon />
           </button>
-          <button aria-label="Košarica" className="relative text-ink">
+          <Link href="/kosarica" aria-label="Košarica" className="relative text-ink">
             <BagIcon />
-            <span className="absolute -right-2.5 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-wood text-[10px] text-white">
-              0
-            </span>
-          </button>
+            {count > 0 && (
+              <span className="absolute -right-2.5 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-wood px-1 text-[10px] text-white">
+                {count}
+              </span>
+            )}
+          </Link>
           <button
             aria-label="Izbornik"
             aria-expanded={open}

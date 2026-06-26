@@ -2,10 +2,13 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ProductCard } from "@/components/product-card";
+import { useCart } from "@/lib/cart";
 import { formatEur, type Product, type VariantOption } from "@/lib/products";
 
 export function ProductDetail({ product: p, related }: { product: Product; related: Product[] }) {
+  const { add } = useCart();
   const [activeImg, setActiveImg] = useState(0);
   const [wood, setWood] = useState(p.woodOptions[0]?.label ?? "");
   const [finish, setFinish] = useState(p.finishOptions[0]?.label ?? "");
@@ -29,6 +32,27 @@ export function ProductDetail({ product: p, related }: { product: Product; relat
   const showWood = p.woodOptions.length > 1;
   const showFinish = p.finishOptions.length > 1;
   const showSize = p.sizeOptions.length > 0;
+
+  function selectedVariants(): string[] {
+    const v: string[] = [];
+    if (p.woodOptions.length) v.push(wood);
+    if (p.finishOptions.length) v.push(finish);
+    if (p.sizeOptions.length) v.push(size);
+    return v;
+  }
+
+  function addToCart() {
+    add({
+      slug: p.slug,
+      name: p.name,
+      image: p.images[0],
+      variants: selectedVariants(),
+      unitPrice,
+      qty,
+    });
+    setAdded(true);
+    window.setTimeout(() => setAdded(false), 4000);
+  }
 
   return (
     <>
@@ -98,13 +122,13 @@ export function ProductDetail({ product: p, related }: { product: Product; relat
           {/* Varijante */}
           <div className="mt-6 space-y-4">
             {showWood && (
-              <Selector label="Vrsta drveta" value={wood} onChange={setWood} options={p.woodOptions} base={p.basePrice} />
+              <Selector label="Vrsta drveta" value={wood} onChange={setWood} options={p.woodOptions} />
             )}
             {showFinish && (
-              <Selector label="Završna obrada / boja" value={finish} onChange={setFinish} options={p.finishOptions} base={p.basePrice} />
+              <Selector label="Završna obrada / boja" value={finish} onChange={setFinish} options={p.finishOptions} />
             )}
             {showSize && (
-              <Selector label="Dimenzije" value={size} onChange={setSize} options={p.sizeOptions} base={p.basePrice} />
+              <Selector label="Dimenzije" value={size} onChange={setSize} options={p.sizeOptions} />
             )}
           </div>
 
@@ -128,7 +152,7 @@ export function ProductDetail({ product: p, related }: { product: Product; relat
               </button>
             </div>
             <button
-              onClick={() => setAdded(true)}
+              onClick={addToCart}
               className="flex-1 rounded-sm bg-ink px-6 py-3 text-sm font-medium text-cream transition hover:bg-wooddeep"
             >
               Dodaj u košaricu — {formatEur(unitPrice * qty)}
@@ -136,8 +160,10 @@ export function ProductDetail({ product: p, related }: { product: Product; relat
           </div>
           {added && (
             <p className="mt-3 rounded-sm bg-cream2 px-4 py-3 text-sm text-inksoft">
-              Košarica i naplata dolaze u sljedećoj fazi izrade. Za upit ili narudžbu javite se na{" "}
-              <span className="font-medium text-ink">info@masiva.hr</span>.
+              Dodano u košaricu.{" "}
+              <Link href="/kosarica" className="font-medium text-ink underline underline-offset-2">
+                Pogledaj košaricu →
+              </Link>
             </p>
           )}
 
@@ -218,7 +244,7 @@ export function ProductDetail({ product: p, related }: { product: Product; relat
       <div className="fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-3 border-t border-line bg-cream px-4 py-3 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] md:hidden">
         <div className="text-sm font-semibold">{formatEur(unitPrice * qty)}</div>
         <button
-          onClick={() => setAdded(true)}
+          onClick={addToCart}
           className="flex-1 rounded-sm bg-ink py-3 text-center text-sm font-medium text-cream"
         >
           Dodaj u košaricu
@@ -234,13 +260,11 @@ function Selector({
   value,
   onChange,
   options,
-  base,
 }: {
   label: string;
   value: string;
   onChange: (v: string) => void;
   options: VariantOption[];
-  base: number;
 }) {
   return (
     <label className="block">
