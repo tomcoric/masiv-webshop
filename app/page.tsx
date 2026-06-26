@@ -8,7 +8,7 @@ const VALUES = [
   ["Masivno drvo", "Bez furnira i iverice — pravi masiv hrasta i oraha, uljene površine ugodne na dodir."],
   ["Kvalitetna izrada", "Provjereni stolarski spojevi i strogi standardi kvalitete u svakom komadu."],
   ["Dugotrajnost", "Namještaj koji se prenosi s generacije na generaciju, ne mijenja se svake sezone."],
-  ["Izrada po mjeri", "Dimenzije, vrsta drveta i završna obrada prilagođeni vašem prostoru."],
+  ["Standardne veličine", "Provjerene dimenzije koje odgovaraju većini prostora — odaberete ih kroz jednostavan izbornik."],
   ["Dostava na adresu", "Sigurna dostava velikih komada u cijeloj Hrvatskoj, uz unos u prostor."],
   ["Procijenjeni rok izrade", "Jasan rok isporuke za svaki komad — bez skrivenih iznenađenja."],
 ];
@@ -23,7 +23,7 @@ const STEPS = [
 
 const REVIEWS = [
   ["„Stol je još ljepši uživo. Masiv se osjeti čim ga dotakneš.”", "Ivana M.", "Zagreb"],
-  ["„Izrada po mjeri za naš mali prostor — sve je sjelo savršeno.”", "Marko P.", "Split"],
+  ["„Odabrali smo veću dimenziju stola i stigao je točno na vrijeme.”", "Marko P.", "Split"],
   ["„Dostava i unos u stan bez ijedne ogrebotine. Preporuka.”", "Petra K.", "Rijeka"],
 ];
 
@@ -48,7 +48,7 @@ export default function HomePage() {
       {/* Najava */}
       <div className="bg-ink px-4 py-2.5 text-center text-[12.5px] tracking-wide text-cream">
         Besplatna dostava na adresu za narudžbe iznad <strong className="font-semibold">900&nbsp;€</strong>
-        &nbsp;·&nbsp; Izrada po mjeri dostupna
+        &nbsp;·&nbsp; Masivni hrast i orah
       </div>
 
       <main>
@@ -81,10 +81,10 @@ export default function HomePage() {
                 Pogledaj kolekciju
               </Link>
               <Link
-                href="#pomjeri"
+                href="#kategorije"
                 className="inline-flex items-center rounded-sm border border-white px-6 py-3.5 text-sm font-medium text-white transition hover:bg-white hover:text-ink"
               >
-                Izradi po mjeri
+                Istraži kolekcije
               </Link>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function HomePage() {
             <SectionHead
               eyebrow="Najprodavanije"
               title="Izdvojeno iz kolekcija"
-              text="Orijentacijske cijene — konačne cijene i varijante potvrđuju se prema dimenzijama i obradi."
+              text="Orijentacijske cijene — konačna cijena ovisi o odabranoj dimenziji i obradi."
             />
             <div className="grid grid-cols-2 gap-x-3.5 gap-y-5 md:grid-cols-3 md:gap-6">
               {products.map((p) => (
@@ -253,40 +253,6 @@ export default function HomePage() {
                   <p className="text-[13.5px] font-light text-inksoft">{p}</p>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA PO MJERI */}
-        <section id="pomjeri" className="py-16 md:py-22">
-          <div className="mx-auto max-w-[1240px] px-5">
-            <div className="relative overflow-hidden rounded-sm text-center text-white">
-              <Image
-                src="https://www.gutekunst.de/wp-content/uploads/2025/12/Gutekunst_Milieu1_neu-scaled.jpeg"
-                alt="Interijer s namještajem po mjeri"
-                fill
-                sizes="100vw"
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-ink/65" />
-              <div className="relative mx-auto max-w-xl px-6 py-16">
-                <span className="text-xs font-medium uppercase tracking-[0.22em] text-white/85">
-                  Namještaj po mjeri
-                </span>
-                <h2 className="mt-2 text-[clamp(28px,6vw,42px)] text-white">
-                  Drugačija dimenzija ili obrada?
-                </h2>
-                <p className="mb-6 mt-4 font-light text-white/90">
-                  Vaš prostor je jedinstven. Recite nam dimenzije, vrstu drveta i željenu obradu —
-                  izradit ćemo komad po vašoj mjeri.
-                </p>
-                <Link
-                  href="#kontakt"
-                  className="inline-flex items-center rounded-sm border border-white px-6 py-3.5 text-sm font-medium text-white transition hover:bg-white hover:text-ink"
-                >
-                  Pošaljite upit za izradu po mjeri
-                </Link>
-              </div>
             </div>
           </div>
         </section>

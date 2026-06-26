@@ -7,7 +7,6 @@ const NAV = [
   { href: "#kategorije", label: "Blagovaona" },
   { href: "#proizvodi", label: "Stolovi" },
   { href: "#proizvodi", label: "Stolice i klupe" },
-  { href: "#pomjeri", label: "Po mjeri" },
   { href: "#proces", label: "O nama" },
 ];
 

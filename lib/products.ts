@@ -98,7 +98,7 @@ export const products: Product[] = [
     collection: "Monte",
     category: "Klupe i kutne klupe",
     description:
-      "Rješenje za svaki prostor — kutna klupa u cm-rasteru po vašoj mjeri.",
+      "Rješenje za svaki kutak — kutna klupa u standardnim dimenzijama.",
     price: 1450,
     badge: "Po narudžbi",
     image:

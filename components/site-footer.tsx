@@ -20,7 +20,7 @@ export function SiteFooter() {
               ["#proizvodi", "Stolovi"],
               ["#proizvodi", "Stolice i klupe"],
               ["#proizvodi", "Kutne klupe"],
-              ["#pomjeri", "Po mjeri"],
+              ["#proizvodi", "Najprodavanije"],
             ]}
           />
           <FooterCol
