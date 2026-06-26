@@ -12,7 +12,6 @@ export function CartView() {
   const { items, remove, setQty, subtotal, ready } = useCart();
   const [promo, setPromo] = useState("");
   const [promoNote, setPromoNote] = useState("");
-  const [checkoutNote, setCheckoutNote] = useState(false);
 
   if (!ready) {
     return <div className="py-20 text-center text-muted">Učitavanje košarice…</div>;
@@ -104,7 +103,6 @@ export function CartView() {
       <aside className="h-fit rounded-sm border border-line bg-white p-6">
         <h2 className="text-xl">Sažetak narudžbe</h2>
 
-        {/* Promo kod (priprema za buduće kupone) */}
         <div className="mt-4">
           <label className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[0.1em] text-ink">
             Promo kod
@@ -150,19 +148,12 @@ export function CartView() {
         </div>
         <p className="mt-1 text-[12px] text-muted">PDV uključen. Trošak dostave dodaje se na blagajni.</p>
 
-        <button
-          onClick={() => setCheckoutNote(true)}
-          className="mt-5 w-full rounded-sm bg-ink py-3 text-sm font-medium text-cream transition hover:bg-wooddeep"
+        <Link
+          href="/blagajna"
+          className="mt-5 block w-full rounded-sm bg-ink py-3 text-center text-sm font-medium text-cream transition hover:bg-wooddeep"
         >
           Nastavi na blagajnu
-        </button>
-        {checkoutNote && (
-          <p className="mt-3 rounded-sm bg-cream2 px-4 py-3 text-[13px] text-inksoft">
-            Blagajna (unos podataka, dostava i plaćanje) izrađuje se u sljedećem koraku. Vaša košarica
-            ostaje spremljena.
-          </p>
-        )}
-
+        </Link>
         <Link
           href="/trgovina"
           className="mt-3 block text-center text-sm text-wood underline-offset-2 hover:underline"

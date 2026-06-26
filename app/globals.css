@@ -37,14 +37,28 @@
     font-weight: 600;
     line-height: 1.1;
   }
-  /* Vidljiv focus state radi pristupačnosti */
   :focus-visible {
     outline: 2px solid var(--color-wood);
     outline-offset: 2px;
   }
 }
 
-/* Poštivanje prefers-reduced-motion */
+@layer components {
+  /* Jedinstveni stil polja u formama */
+  .inp {
+    width: 100%;
+    border: 1px solid var(--color-line);
+    background: #ffffff;
+    border-radius: 4px;
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--color-ink);
+  }
+  .inp::placeholder {
+    color: var(--color-muted);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;
